@@ -1,6 +1,7 @@
 import re
 import socket 
 import subprocess
+import os
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -24,7 +25,12 @@ if ip:
     f = open("andpay.rc", "w")    
     f.write(file_str)
     f.close()
-    subprocess.Popen("msfconsole -r andpay.rc", shell=True, stderr=subprocess.STDOUT)
-
-
+    try:
+        #ceck if there's someone work in 8080 port , if we find it we kill it 
+        output= subprocess.check_output(["lsof","-i",":8080"],stderr=subprocess.STDOUT,shell=False)
+        output = output.split(" ")[21]
+        subprocess.check_output(["kill",output],stderr=subprocess.STDOUT,shell=False)
+    except:
+        pass
+    os.system("gnome-terminal -x msfconsole -r andpay.rc")
 
