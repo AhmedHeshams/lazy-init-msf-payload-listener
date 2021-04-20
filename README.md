@@ -14,9 +14,8 @@ First, you should make sure that andpay.py and andpay.rc are in the same path an
 ```
 python3 andpay.py
 ```
-<br />
 ![Build and run](https://i.ibb.co/7WcxQzF/Screenshot-at-2021-04-20-07-57-12.png)
-<br />
+
 Voila! Now you have metasploit payload listener running in your terminal with your **LAN IP** address.
 
 ## Challenges I Faced
@@ -24,22 +23,21 @@ Voila! Now you have metasploit payload listener running in your terminal with yo
 <br />
 ### Challenge 1 
 When I tested the script, I countered this problem in metasploit:
-<br />
+
 ![Challenges I faced](https://i.ibb.co/SsvX2g6/Screenshot-at-2021-04-20-07-09-00.png)
-<br />
+
 I traced the problem and I found that metasploit listener didn't close when I closed the terminal, so, I needed to kill it before attempting to start metasploit again as illustrated in the following picture.
-<br />
+
 ![The origin of the problem](https://i.ibb.co/5cPddKN/Screenshot-at-2021-04-20-07-19-19.png)
-<br />
+
 ### Challenge 2 
 Using the next code was a very bad idea.
 
 ```
 subprocess.Popen("msfconsole -r andpay.rc", shell=True, stderr=subprocess.STDOUT)
 ``` 
-<br />
-**Why?** [The reason]
-<br />
+
+**Why?**  <br/>
 It opened a terminal and showed only the output. You can't write anything in this terminal, although you can write commands in python and execute it within the aforementioned terminal.
 So, I used the next code to write freely in the terminal instead.
 ```
